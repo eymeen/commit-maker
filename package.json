@@ -1,0 +1,24 @@
+{
+  "name": "commiter",
+  "version": "1.0.0",
+  "description": "Git commit history chart controller",
+  "main": "commit.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eymeen/commiter.git"
+  },
+  "author": "Eymen Eid",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eymeen/commiter/issues"
+  },
+  "homepage": "https://github.com/eymeen/commiter#readme",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "fs": "^0.0.1-security",
+    "readline-sync": "^1.4.10"
+  }
+}

@@ -48,6 +48,31 @@ class Commit{
         process.chdir('../..');
         return true
     }
+    singleCommit(timestamp){
+        if(level==0) return 0;
+
+        if(!fs.existsSync("fake_commits")){
+            fs.mkdirSync("fake_commits");
+        }
+        process.chdir("fake_commits")
+
+        if(!fs.existsSync(timestamp.toString())){
+            fs.mkdirSync(timestamp.toString());
+        }
+
+        process.chdir(timestamp.toString());
+
+        let date = new Date(timestamp * 1000);
+        console.log(date ,timestamp )
+        fs.writeFileSync(`${timestamp}`, '')
+        execSync(`git add "${timestamp}"`);
+        execSync(`git commit -m "Commit" --date=\"${date}\" --amend --no-edit`)
+
+        process.chdir('../..');
+
+        return true;
+    }
+
     push(){
         execSync(`git push`);
 

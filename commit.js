@@ -117,6 +117,19 @@ class Commit{
 
         return full;
     }
+    findDay(matrix, year, month, day, index = false){ // return value or the index
+        let r = new Date(year, month, day).getDay()
+
+        const jan1 = new Date(year, 0, 1).getDay();
+        const tilSunday = (jan1 + 1) % 7;
+        const targetDate = new Date(year, month, day);
+        const startDate = new Date(year, 0, 1);
+        const timeDiff = targetDate - startDate;
+        const dayOrder = Math.floor(timeDiff / (24 * 60 * 60 * 1000));
+
+        let c = (tilSunday + dayOrder)/7
+        return index ? [r,~~c] : matrix[r][~~c];
+    }
 }
 
 const commit = new Commit("10-10-2020", "10-10-2021", true, 16)

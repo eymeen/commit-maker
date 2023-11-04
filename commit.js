@@ -130,6 +130,25 @@ class Commit{
         let c = (tilSunday + dayOrder)/7
         return index ? [r,~~c] : matrix[r][~~c];
     }
+    set(matrix, type, value, index){
+        switch (type) {
+            case "single":
+                let k = findDay(matrix, index.split('-'), true)
+                matrix[k[0]][k[1]] = value;
+                break;
+            case "row":
+                matrix[index] = matrix[index].map(e=>e==-1?e:value);
+                break;
+            case "col":
+                for(let i = 0; i < 7 ; i++){
+                    matrix[i][index] = value
+                }
+                break;
+        }
+
+        return matrix;
+    }
+
     matrixToArray(matrix, year) {
         const result = {};
 

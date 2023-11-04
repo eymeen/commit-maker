@@ -258,7 +258,4 @@ class Commit{
     }
 }
 
-const commit = new Commit("10-10-2020", "10-10-2021", true, 16)
-commit.start()
-// commit.push()
-// commit.cleanUp()
+module.exports = Commit;

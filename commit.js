@@ -22,6 +22,12 @@ class Commit{
             if(this.commit(i, this.getRandom([+!this.blanks, 4]) ,this.max)) console.log("done");
         }
     }
+    commitDates(dates){
+        for (const i in dates) {
+            this.commit(i, dates[i])
+        }
+        return true
+    }
     commit(timestamp, level, max=4){
         if(level==0) return 0;
 

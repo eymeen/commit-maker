@@ -28,6 +28,13 @@ class Commit{
         }
         return true
     }
+    /**
+     *
+     * @param {*} timestamp
+     * @param {*} level 0-4, if it's higher, it will be counted as the number of commits
+     * @param {*} max
+     * @returns
+     */
     commit(timestamp, level, max=4){
         if(level==0) return 0;
 
@@ -105,7 +112,12 @@ class Commit{
         return 0;
     }
 
-    // range
+    /**
+     *
+     * @param {*} level
+     * @param {*} max
+     * @returns returns the range of number of commits that will make square filled with the needed color
+     */
     range(level, max){
         if(level == 4) {
             return [(max*.75)+1, max];
@@ -113,9 +125,19 @@ class Commit{
         let range = ((level/4)*max);
         return [~~range, -~range];
     }
+    /**
+     *
+     * @param {*} array
+     * @returns random numeber between array's first and second element
+     */
     getRandom([min, max]){
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+    /**
+     *
+     * @param {*} dateString
+     * @returns
+     */
     getTime(dateString) {
         const parts = dateString.split('-');
         if (parts.length !== 3) {
@@ -130,6 +152,14 @@ class Commit{
 
         return timestamp;
     }
+
+    // drawings
+
+    /**
+     *
+     * @param {*} year
+     * @returns
+     */
     generateMatrix(year = -1) {
         const full = Array(7).fill().map(() => Array(53).fill(0));
 
@@ -148,6 +178,16 @@ class Commit{
 
         return full;
     }
+
+    /**
+     *
+     * @param {*} matrix
+     * @param {*} year
+     * @param {*} month
+     * @param {*} day
+     * @param index
+     * @returns
+     */
     findDay(matrix, year, month, day, index = false){ // return value or the index
         let r = new Date(year, month, day).getDay()
 
@@ -161,6 +201,14 @@ class Commit{
         let c = (tilSunday + dayOrder)/7
         return index ? [r,~~c] : matrix[r][~~c];
     }
+
+    /**
+     *
+     * @param {array} matrix
+     * @param {string} type single, row, col,
+     * @param {integer} value
+     * @param {integer|array} index
+     */
     set(matrix, type, value, index){
         switch (type) {
             case "single":

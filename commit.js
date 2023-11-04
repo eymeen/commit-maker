@@ -99,6 +99,24 @@ class Commit{
 
         return timestamp;
     }
+    generateMatrix(year = -1) {
+        const full = Array(7).fill().map(() => Array(53).fill(0));
+
+        if (year === -1) return full;
+
+        const startDay = new Date(year, 0, 1).getDay();
+        const endDay = new Date(year, 11, 31).getDay();
+
+        for (let i = 0; i < startDay; i++) {
+            full[i][0] = -1;
+        }
+
+        for (let i = 6; i > endDay; i--) {
+            full[i][52] = -1;
+        }
+
+        return full;
+    }
 }
 
 const commit = new Commit("10-10-2020", "10-10-2021", true, 16)

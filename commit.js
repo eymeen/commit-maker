@@ -1,6 +1,6 @@
 const { execSync } = require('child_process');
 const readline = require('readline-sync');
-const fs = require("fs");
+const fs = require('fs');
 
 class Commit{
     /**
@@ -10,7 +10,7 @@ class Commit{
      * DONE:
      * in-range random
      */
-    constructor(start, end, blanks, max, type="random"){
+    constructor(start=null, end=null, blanks=null, max=null, type="random"){
         this.startDate = this.getTime(start);
         this.endDate = this.getTime(end);
         this.blanks = blanks;
@@ -37,25 +37,30 @@ class Commit{
      */
     commit(timestamp, level, max=4){
         if(level==0) return 0;
+        if(typeof level == "object") {
+            // timestamp = new Date(timestamp).getTime()
+        }else if(typeof timestamp == "string"){
+            timestamp = this.getTime(timestamp)
+        }
 
         if(!fs.existsSync("fake_commits")){
             fs.mkdirSync("fake_commits");
         }
         process.chdir("fake_commits")
-
         if(!fs.existsSync(timestamp.toString())){
             fs.mkdirSync(timestamp.toString());
         }
 
         process.chdir(timestamp.toString());
 
-        let commit_frequency = this.getRandom(this.range(level, max));
+        let commit_frequency = level > 4 ? level : this.getRandom(this.range(level, max));
+        let date = new Date(+timestamp);
+
         for(let i = 1; i <= commit_frequency;i++){
-            let date = new Date(timestamp * 1000);
-            console.log(date ,timestamp )
             fs.writeFileSync(`${timestamp}_${i}`, '')
             execSync(`git add "${timestamp}_${i}"`);
-            execSync(`git commit -m "Commit" --date=\"${date}\" --amend --no-edit`)
+            execSync(`git commit -m "${timestamp} n#${i}"`);
+            console.log(execSync(`git commit --date=\"${date}\" --amend --no-edit`))
         }
 
         process.chdir('../..');
@@ -99,7 +104,7 @@ class Commit{
         return true
     }
     cleanUp(cancel_commits = false){
-        fs.rmSync("fake_commits")
+        execSync("rmdir /s /q fake_commits")
         if(cancel_commits) this.cancelCommits();
         execSync(`git add -A`);
         execSync(`git commit -m "Clean Up!"`);
@@ -109,6 +114,9 @@ class Commit{
     }
     cancelCommits(){
         execSync("git reset --hard $(git rev-list --max-parents=0 HEAD)");
+        if(fs.existsSync("fake_commits")){
+            execSync("rmdir /s /q fake_commits")
+        }
         return 0;
     }
 

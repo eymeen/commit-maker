@@ -130,6 +130,26 @@ class Commit{
         let c = (tilSunday + dayOrder)/7
         return index ? [r,~~c] : matrix[r][~~c];
     }
+    matrixToArray(matrix, year) {
+        const result = {};
+
+        for (let row = 0; row < 7; row++) {
+          for (let col = 0; col < 53; col++) {
+            const value = matrix[row][col];
+            if (value >= 1) {
+              const date = new Date();
+              date.setFullYear(year);
+              date.setMonth(0);
+              date.setDate(1 + (col * 7) - date.getDay() + row);
+
+              let timestamp = date.getTime()
+              result[timestamp] = [date, value];
+            }
+          }
+        }
+
+        return result;
+    }
 }
 
 const commit = new Commit("10-10-2020", "10-10-2021", true, 16)

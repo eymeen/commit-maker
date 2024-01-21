@@ -9,4 +9,3 @@ commit.random({
     min: 0,
 })
 commit.start()
-// commit.cleanup()

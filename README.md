@@ -3,7 +3,7 @@
 ### installation:
 run:
 ```
-gh repo clone eymeen/commiter
+npm install commit-maker
 ```
 then:
 ```

@@ -1,25 +1,26 @@
 {
-  "name": "commiter",
-  "version": "1.0.0",
+  "name": "commit-maker",
+  "version": "2.0.0",
   "description": "Git commit history chart controller",
-  "main": "commit.js",
+  "main": "commit-maker.js",
+  "type": "module",
   "scripts": {
     "test": "node test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eymeen/commiter.git"
+    "url": "git+https://github.com/eymeen/commit-maker.git"
   },
   "author": "Eymen Eid",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eymeen/commiter/issues"
+    "url": "https://github.com/eymeen/commit-maker/issues"
   },
-  "homepage": "https://github.com/eymeen/commiter#readme",
+  "homepage": "https://github.com/eymeen/commit-maker#readme",
   "dependencies": {
     "child_process": "^1.0.2",
     "fs": "^0.0.1-security",
     "fs-extra": "^11.1.1",
-    "readline-sync": "^1.4.10"
+    "moment": "^2.30.1"
   }
 }
